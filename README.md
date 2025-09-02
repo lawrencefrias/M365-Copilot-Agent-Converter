@@ -18,6 +18,12 @@ Convert a **Microsoft 365 declarative agent** app package (Teams app `manifest.j
 
 > **Limitation:** There is no public, supported API to import a full Copilot Studio agent including topics and all components as a Dataverse solution from a declarative agent JSON. Finish configuration in Copilot Studio, then export an unmanaged solution from there.
 
+## Prerequisites
+
+- Node.js LTS (includes npm)
+- TypeScript (installed via `npm install`)
+- (Optional) A Dataverse environment and Azure AD app registration if you plan to use `--provision`
+
 ## Getting Started
 
 npm i
