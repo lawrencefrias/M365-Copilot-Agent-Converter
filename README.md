@@ -29,7 +29,7 @@ Convert a **Microsoft 365 declarative agent** app package (Teams app `manifest.j
 npm i
 cp .env.sample .env
 
-## populate DATAVERSE_URL, TENANT_ID, CLIENT_ID, CLIENT_SECRET if you want provisioning
+### populate DATAVERSE_URL, TENANT_ID, CLIENT_ID, CLIENT_SECRET if you want provisioning
 
 npm run build
 
