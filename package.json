@@ -20,7 +20,7 @@
     "dotenv": "^16.4.5",
     "jszip": "^3.10.1",
     "node-fetch": "^3.3.2",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/jszip": "^3.4.1",
