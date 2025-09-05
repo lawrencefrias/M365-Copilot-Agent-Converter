@@ -26,6 +26,10 @@ Convert a **Microsoft 365 declarative agent** app package (Teams app `manifest.j
 
 ## Getting Started
 
+Run: build-and-package.ps1 from an Elevated command prompt
+
+## Manual steps
+
 npm i
 cp .env.sample .env
 
@@ -33,10 +37,18 @@ cp .env.sample .env
 
 npm run build
 
-## Convert only
+### Convert only
 
-m3652cs -i ./examples/sample.m365.agent.zip -o ./out
+node .\bin\m3652cs.js -i .\examples\sample-m365-agent.zip -o .\out
 
-## Convert + create a new Copilot (bot)
+### Convert + create a new Copilot (bot)
 
-m3652cs -i ./examples/sample.m365.agent.zip -o ./out --provision
+node .\bin\m3652cs.js -i .\examples\sample-m365-agent.zip -o .\out --provision
+
+### Zip the output
+
+Compress-Archive -Path .\out\* -DestinationPath .\copilot-agent.zip -Force
+
+## Upload into Copilot Studio
+
+<https://learn.microsoft.com/nl-nl/microsoft-copilot-studio/authoring-solutions-import-export>
