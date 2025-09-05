@@ -7,6 +7,8 @@ import { hideBin } from "yargs/helpers";
 import { loadZip, readManifestJson, readDeclarativeAgentJson } from "./parsers.js";
 import { writeArtifacts } from "./artifacts.js";
 import { createBot } from "./dataverse.js";
+import { buildDataverseSolutionZip, deriveSolutionMetadata } from "./solutionBuilder.js";
+
 
 // 1) Strongly type CLI args and use parseSync() to avoid Promise | Args union
 //    Ref: yargs TypeScript usage + parseSync guidance. 
@@ -67,6 +69,13 @@ const outDir = path.resolve(argv.out);
   writeArtifacts(outDir, { app, agent });
 
   console.log(`✔ Wrote Copilot Studio artifacts to: ${outDir}`);
+
+  // NEW: Build a minimal Dataverse solution ZIP so Copilot Studio import succeeds
+  const meta = deriveSolutionMetadata({ app, agent });
+  const { zipBuffer } = await buildDataverseSolutionZip(meta);
+  const solutionZipPath = path.join(outDir, `${meta.solutionUniqueName}_${meta.version}.zip`);
+  fs.writeFileSync(solutionZipPath, zipBuffer);
+  console.log(`✔ Built Dataverse solution: ${solutionZipPath}`);
 
   if (argv.provision) {
     const name =

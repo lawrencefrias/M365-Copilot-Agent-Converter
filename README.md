@@ -1,5 +1,7 @@
 # m365-agent-to-copilotstudio
 
+"version": "0.3.0",
+
 Convert a **Microsoft 365 declarative agent** app package (Teams app `manifest.json` + `declarativeAgent_*.json`) into **Copilot Studio–ready artifacts** and optionally create a new **Copilot (bot)** record in Dataverse for you to finish authoring.
 
 ## Why?
