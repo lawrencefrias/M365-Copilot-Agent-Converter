@@ -64,7 +64,7 @@ function normalize(meta: SolutionMetadata): Required<SolutionMetadata> {
 }
 
 function xmlEscape(s: string): string {
-  return s
+  return String(s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -72,11 +72,11 @@ function xmlEscape(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-
 /**
  * `solution.xml`:
  * Official examples show a root <ImportExportXml> node that includes <SolutionManifest>.
- * Keep attributes simple; platform fills in additional metadata during import. [2](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/create-custom-api-solution)
+ * Keep attributes simple; platform fills in additional metadata during import.
+ * Docs: https://learn.microsoft.com/en-us/power-apps/developer/data-platform/create-custom-api-solution
  */
 function generateSolutionXml(meta: Required<SolutionMetadata>): string {
   const managedFlag = meta.managed ? 1 : 0;
@@ -100,16 +100,17 @@ function generateSolutionXml(meta: Required<SolutionMetadata>): string {
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
       <CustomizationPrefix>${xmlEscape(meta.customizationPrefix)}</CustomizationPrefix>
-      <!-- OptionValuePrefix is optional here; platform can assign one on import if missing -->
+      <!-- OptionValuePrefix is optional; platform can assign one on import if missing -->
     </Publisher>
-    <!-- No RootComponents → solution imports as an empty shell; customizations.xml will define components if you add them later -->
+    <!-- No RootComponents → empty shell; add components later via customizations.xml if needed -->
   </SolutionManifest>
 </ImportExportXml>`;
 }
 
 /**
  * `customizations.xml`:
- * Minimal, schema‑valid empty document; all primary sections are optional (minOccurs=0). [3](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/customization-solutions-file-schema)
+ * Minimal, schema‑valid empty document; all primary sections are optional (minOccurs=0).
+ * Docs: https://learn.microsoft.com/en-us/power-apps/developer/data-platform/customization-solutions-file-schema
  */
 function generateCustomizationsXml(): string {
   return `<?xml version="1.0" encoding="utf-8"?>
@@ -118,7 +119,8 @@ function generateCustomizationsXml(): string {
 
 /**
  * `[Content_Types].xml`:
- * Minimal Open Packaging declaration is sufficient for a solution containing only XML files. [1](https://learn.microsoft.com/en-us/troubleshoot/power-platform/dataverse/working-with-solutions/the-solution-file-is-invalid)
+ * Minimal Open Packaging declaration is sufficient for a solution containing only XML files.
+ * Docs: https://learn.microsoft.com/en-us/troubleshoot/power-platform/dataverse/working-with-solutions/the-solution-file-is-invalid
  */
 function generateContentTypesXml(): string {
   return `<?xml version="1.0" encoding="utf-8"?>
