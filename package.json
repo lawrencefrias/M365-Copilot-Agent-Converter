@@ -16,7 +16,7 @@
     "test": "node -e \"console.log('No tests yet')\""
   },
   "dependencies": {
-    "@azure/identity": "^4.5.0",
+    "@azure/identity": "^4.13.1",
     "dotenv": "^17.2.3",
     "jszip": "^3.10.1",
     "node-fetch": "^3.3.2",
